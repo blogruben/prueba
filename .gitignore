@@ -1,0 +1,21 @@
+# Ignore Gradle generados
+.gradle
+
+# Ignore compilados
+bin
+build
+*.class
+*.jar
+
+# Ignore vscode config
+.vscode
+.history
+
+# Mantener gradle wrapper
+!*/**/gradle-wrapper.jar
+
+# Ignorar jdk
+jdk8
+jdk8.zip
+jdk17
+jdk17.zip
