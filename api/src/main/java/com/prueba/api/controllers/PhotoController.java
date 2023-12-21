@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.prueba.api.controllers;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.prueba.api.models.UsuarioModel;
+import com.prueba.api.services.UsuarioService;
 
-import com.example.demo.models.UsuarioModel;
-import com.example.demo.services.UsuarioService;
 
 
 //Clase de tipo controlador recibe la peticion web que llama al servicio
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/photo")
+public class PhotoController {
    @Autowired
-   UsuarioService usuarioService;
+   PhotoService usuarioService;
 
    @GetMapping()
    public ArrayList<UsuarioModel> obtenerUsuarios(){

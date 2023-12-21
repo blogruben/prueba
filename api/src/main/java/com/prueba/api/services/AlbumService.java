@@ -1,18 +1,17 @@
-package com.example.demo.services;
+package com.prueba.api.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.prueba.api.models.UsuarioModel;
+import com.prueba.api.repositories.UsuarioRepository;
 
-import com.example.demo.models.UsuarioModel;
-import com.example.demo.repositories.UsuarioRepository;
 
 //tipo clase de tipo Service que hace la logica y llama a repository
 //Con autowired spring lo instancia 
 @Service
-public class UsuarioService {
+public class AlbumService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
