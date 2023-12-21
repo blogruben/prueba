@@ -36,26 +36,26 @@ for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
-
-
 @rem Find java.exe
-FOR %%A IN ("%~dp0.") DO set JAVA_HOME=%%~dpAjdk17\
-set JAVA_EXE=%JAVA_HOME%bin\java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if %ERRORLEVEL% equ 0 goto execute
+
+echo.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
 
 if exist "%JAVA_EXE%" goto execute
-
-@rem mostra un mensaje de que se descarga JDK
-echo No se encuentra el archivo %JAVA_EXE% 
-set/p nombre=Pulsa [Enter] para descargar JDK17 (181MB) o pulsa [Ctrl+C] para salir  ... 
-@rem descargar JDK 
-curl -L -o jdk17.zip https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9+9.1/OpenJDK17U-jdk_x64_windows_hotspot_17.0.9_9.zip
-tar -xf jdk17.zip
-del /f /q "jdk17.zip"
-ren jdk-17.0.9+9 jdk17 
-move jdk17 ../jdk17
-
-if exist "%JAVA_EXE%" goto execute
-
 
 echo.
 echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%

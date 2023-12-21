@@ -1,0 +1,11 @@
+FROM tomcat:8-jdk8-corretto
+LABEL maintainer="blogruben"
+ADD app.war /usr/local/tomcat/webapps/
+COPY server.xml /usr/local/tomcat/conf/server.xml
+ARG MYSQL_DATABASE
+ARG MYSQL_USER
+ARG MYSQL_PASSWORD
+ENV CATALINA_OPTS="-DMYSQL_DATABASE=$MYSQL_DATABASE -DMYSQL_USER=$MYSQL_USER -DMYSQL_PASSWORD=$MYSQL_PASSWORD"
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+
