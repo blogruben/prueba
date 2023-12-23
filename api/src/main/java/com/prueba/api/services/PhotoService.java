@@ -8,14 +8,12 @@ import com.prueba.api.models.PhotoModel;
 import com.prueba.api.repositories.PhotoRepository;
 
 
-//tipo clase de tipo Service que hace la logica y llama a repository
-//Con autowired spring lo instancia 
 @Service
 public class PhotoService {
     @Autowired
     PhotoRepository photoRepository;
 
-    public ArrayList<PhotoModel> obtenerUsuarios(){
+    public ArrayList<PhotoModel> getAllPhotos(){
         return (ArrayList<PhotoModel>) photoRepository.findAll();
     }
 
@@ -23,7 +21,7 @@ public class PhotoService {
         return photoRepository.save(photo);
     }
 
-    public Optional<PhotoModel> obtenerFotoPorId(Long id){
+    public Optional<PhotoModel> obtenerPhotosPorId(Long id){
         return photoRepository.findById(id);
     }
 

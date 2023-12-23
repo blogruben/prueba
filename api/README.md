@@ -19,9 +19,19 @@ docker logs -f api
 
 # BBDD
 Aceder http://localhost:8080/h2-ui/
-INSERT INTO USUARIO VALUES(1, 'nombre','email',5);
-INSERT INTO USUARIO VALUES(2, 'nombre','email',5);
+INSERT INTO USUARIO VALUES(1, 'email','nombre',5);
+INSERT INTO USUARIO VALUES(2, 'email','nombre',7);
+INSERT INTO USUARIO VALUES(3, 'email','nombre',3);
 select * from USUARIO;
+INSERT INTO PHOTO VALUES(1, 'THUMBNAIL_URL','TITLE','URL');
+INSERT INTO PHOTO VALUES(2, 'THUMBNAIL_URL','TITLE','URL');
+INSERT INTO PHOTO VALUES(3, 'THUMBNAIL_URL','TITLE','URL');
+select * from PHOTO;
+INSERT INTO ALBUM VALUES(1, 'title',10);
+INSERT INTO ALBUM VALUES(2, 'title',10);
+INSERT INTO ALBUM VALUES(3, 'title',10);
+select * from Album;
+
 
 # Test de integracion
 GET  http://localhost:8080/usuario/1

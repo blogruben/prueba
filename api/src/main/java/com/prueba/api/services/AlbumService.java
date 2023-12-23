@@ -4,39 +4,31 @@ import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.prueba.api.models.UsuarioModel;
-import com.prueba.api.repositories.UsuarioRepository;
+import com.prueba.api.models.AlbumModel;
+import com.prueba.api.repositories.AlbumRepository;
 
 
-//tipo clase de tipo Service que hace la logica y llama a repository
-//Con autowired spring lo instancia 
 @Service
 public class AlbumService {
     @Autowired
-    UsuarioRepository usuarioRepository;
+    AlbumRepository albumRepository;
 
 
-    public ArrayList<UsuarioModel> obtenerUsuarios(){
-        return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
+    public ArrayList<AlbumModel> obtenerAlbums(){
+        return (ArrayList<AlbumModel>) albumRepository.findAll();
     }
 
-    //Registramos el Usuario y devolvemos el mismo
-    //usuario que hemos grabado pero con el ID asignado
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
-        return usuarioRepository.save(usuario);
+    public AlbumModel saveAlbum(AlbumModel album){
+        return albumRepository.save(album);
     }
 
-    public Optional<UsuarioModel> obtenerUsuarioPorId(Long id){
-        return usuarioRepository.findById(id);
+    public Optional<AlbumModel> getAlbumById(Long id){
+        return albumRepository.findById(id);
     }
 
-    public ArrayList<UsuarioModel> obtenerUsuarioPorPrioridad(Integer prioridad){
-        return usuarioRepository.findByPrioridad(prioridad);
-    }
-
-    public boolean eliminarUsuario(Long id){
+    public boolean deleteAlbum(Long id){
         try{
-            usuarioRepository.deleteById(id);
+            albumRepository.deleteById(id);
             return true;
         }catch(Exception err){
             return false;

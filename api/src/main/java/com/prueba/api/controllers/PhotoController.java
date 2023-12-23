@@ -10,48 +10,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.prueba.api.models.UsuarioModel;
-import com.prueba.api.services.UsuarioService;
+import com.prueba.api.models.PhotoModel;
+import com.prueba.api.services.PhotoService;
 
 
-
-//Clase de tipo controlador recibe la peticion web que llama al servicio
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
    @Autowired
-   PhotoService usuarioService;
+   PhotoService photoService;
 
    @GetMapping()
-   public ArrayList<UsuarioModel> obtenerUsuarios(){
-    return this.usuarioService.obtenerUsuarios();
+   public ArrayList<PhotoModel> getAllPhotos(){
+    return this.photoService.getAllPhotos();
    }
     
    @PostMapping()
-   public UsuarioModel guardarUsuario(@RequestBody UsuarioModel usuario){
-    return this.usuarioService.guardarUsuario(usuario);
+   public PhotoModel savePhoto(@RequestBody PhotoModel usuario){
+    return this.photoService.savePhoto(usuario);
    }
 
-   //Ejemlo http://localhost:8080/usuario/1
+   //Ejemlo http://localhost:8080/photo/1
    @GetMapping(path ="/{id}")
-   public Optional<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id") Long id){
-    return this.usuarioService.obtenerUsuarioPorId(id);
-   }
-
-   //Ejemlo http://localhost:8080/usuario/query?prioridad=5
-   @GetMapping("/query")
-   public ArrayList<UsuarioModel> obtenerUsuarioPorPrioridad(@RequestParam("prioridad") Integer prioridad){
-    return this.usuarioService.obtenerUsuarioPorPrioridad(prioridad);
+   public Optional<PhotoModel> getPhotoById(@PathVariable("id") Long id){
+    return this.photoService.obtenerPhotosPorId(id);
    }
 
 
 @DeleteMapping(path ="/{id}")
-public String eliminarPorId(@PathVariable("id") Long id){
-    boolean ok = this.usuarioService.eliminarUsuario(id);
+public String deleteById(@PathVariable("id") Long id){
+    boolean ok = this.photoService.deletePhoto(id);
     if(ok){
-      return "Se elimino el usuario por id "+id;
+      return "Se elimino la photo por id "+id;
     }else{
       return "No se pudo eliminar el usuario con id "+id;
     }
