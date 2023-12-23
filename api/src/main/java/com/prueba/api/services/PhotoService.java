@@ -1,7 +1,9 @@
 package com.prueba.api.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.prueba.api.models.PhotoModel;
@@ -21,6 +23,13 @@ public class PhotoService {
         return photoRepository.save(photo);
     }
 
+    public List<PhotoModel> savePhotoList(ArrayList<PhotoModel> photoList){
+        Iterable<PhotoModel> iterable = photoRepository.saveAll(photoList);
+        List<PhotoModel> photos = new ArrayList<>();
+        iterable.forEach(photos::add);
+        return photos;
+    }
+
     public Optional<PhotoModel> obtenerPhotosPorId(Long id){
         return photoRepository.findById(id);
     }
@@ -34,4 +43,6 @@ public class PhotoService {
         }
         
     }
+
+    
 }

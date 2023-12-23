@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-class ApiApplicationTests {
+class UnitTests {
 
 	@Test
 	void givenAlbum_whenSave_thenOkay() {
@@ -27,7 +27,7 @@ class ApiApplicationTests {
 			"-1,   1,   0",  //probamos numeros negativos
 			"-1,  -2,  -3",  
 			"1,    3,   4",  //pruebas standard
-			"49,  51, 100",
+			"49, s 51, 100",
 
 	})
 	void add(int first, int second, int expectedResult) {

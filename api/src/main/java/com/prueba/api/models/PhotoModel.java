@@ -14,15 +14,22 @@ public class PhotoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long albumId;
+    private Long id;
+    private Integer albumId;
     private String title;
     private String url;
     private String thumbnailUrl;
 
-    public Long getAlbumId() {
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Integer getAlbumId() {
         return albumId;
     }
-    public void setAlbumId(Long albumId) {
+    public void setAlbumId(Integer albumId) {
         this.albumId = albumId;
     }
     public String getTitle() {
