@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prueba.api.models.AlbumModel;
 import com.prueba.api.services.AlbumService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/album")
-public class AlbumController {
+public class AlbumController   {
    @Autowired
    AlbumService albumService;
 
@@ -34,6 +36,8 @@ public class AlbumController {
    //Ejemlo http://localhost:8080/album/1
    @GetMapping(path ="/{id}")
    public Optional<AlbumModel> getAlbumById(@PathVariable("id") Long id){
+    //log.info("Buscar Album por id {id}",id);
+    log.info("Buscar Album por id");
     return this.albumService.getAlbumById(id);
    }
 

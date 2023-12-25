@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.prueba.api.models.PhotoModel;
 import com.prueba.api.services.PhotoService;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
@@ -37,7 +36,13 @@ public class PhotoController {
    //Ejemlo http://localhost:8080/photo/1
    @GetMapping(path ="/{id}")
    public Optional<PhotoModel> getPhotoById(@PathVariable("id") Long id){
-    return this.photoService.obtenerPhotosPorId(id);
+    log.info("Receive GET  endpoint: /photo/{}",id);
+    Optional<PhotoModel> oPhoto = this.photoService.obtenerPhotosPorId(id);
+    if (oPhoto.isPresent()) {
+      log.info("el tostring es: "+oPhoto.get().toString());
+      log.info("el titulo es: "+oPhoto.get().getTitle());
+    }
+    return oPhoto;
    }
 
 

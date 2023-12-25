@@ -1,4 +1,4 @@
-package com.prueba.api.services;
+package com.prueba.api.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

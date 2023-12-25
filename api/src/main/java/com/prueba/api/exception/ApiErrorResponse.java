@@ -1,4 +1,4 @@
-package com.prueba.api.services;
+package com.prueba.api.exception;
 
 public class ApiErrorResponse {
 

@@ -8,31 +8,11 @@ import com.prueba.api.models.AlbumModel;
 import com.prueba.api.repositories.AlbumRepository;
 
 
-@Service
-public class AlbumService {
-    @Autowired
-    AlbumRepository albumRepository;
+public interface AlbumService {
 
+    public ArrayList<AlbumModel> obtenerAlbums();
+    public AlbumModel saveAlbum(AlbumModel album);
+    public Optional<AlbumModel> getAlbumById(Long id);
+    public boolean deleteAlbum(Long id);
 
-    public ArrayList<AlbumModel> obtenerAlbums(){
-        return (ArrayList<AlbumModel>) albumRepository.findAll();
-    }
-
-    public AlbumModel saveAlbum(AlbumModel album){
-        return albumRepository.save(album);
-    }
-
-    public Optional<AlbumModel> getAlbumById(Long id){
-        return albumRepository.findById(id);
-    }
-
-    public boolean deleteAlbum(Long id){
-        try{
-            albumRepository.deleteById(id);
-            return true;
-        }catch(Exception err){
-            return false;
-        }
-        
-    }
 }

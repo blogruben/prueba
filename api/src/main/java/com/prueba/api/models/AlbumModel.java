@@ -1,7 +1,6 @@
 package com.prueba.api.models;
 
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,9 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "album")
+@Getter  
+@Setter
+@ToString
 public class AlbumModel {
 
     @Id
@@ -25,33 +30,6 @@ public class AlbumModel {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "albumId")
     private List<PhotoModel> students;
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Integer getUserId() {
-        return userId;
-    }
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public List<PhotoModel> getStudents() {
-        return students;
-    }
-    public void setStudents(List<PhotoModel> students) {
-        this.students = students;
-    }
-
-
 
 }
 
