@@ -5,15 +5,14 @@ import java.util.Optional;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.prueba.api.models.Album;
+import com.prueba.api.models.Photo;
 
 
-@FeignClient(name = "albumClient", url = "https://jsonplaceholder.typicode.com/albums/")
-public interface AlbumClient {
-
+@FeignClient(name = "photoClient", url = "https://jsonplaceholder.typicode.com/photos/")
+public interface PhotoClient {
     @GetMapping(value = "/{id}")
-    Optional<Album> getAlbumById(@PathVariable(value = "id") Long id);
+    Optional<Photo> getPhotoById(@PathVariable(value = "id") Long id);
 
     @GetMapping()
-    List<Album> getAllAlbums();
+    List<Photo> getAllPhotos();
 }

@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import com.prueba.api.models.Album;
 
+public interface ApiService {
 
-public interface AlbumService {
-
-    public List<Album> obtenerAlbums();
-    public Album saveAlbum(Album album);
+    public List<Album> enrichAlbums();
     public Optional<Album> getAlbumById(Long id);
-    public boolean deleteAlbum(Long id);
-
+    
 }

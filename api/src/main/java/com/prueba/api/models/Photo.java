@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter  
 @Setter
 @ToString
-public class PhotoModel {
+public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

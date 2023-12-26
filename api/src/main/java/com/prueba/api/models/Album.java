@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter  
 @Setter
 @ToString
-public class AlbumModel {
+public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class AlbumModel {
     private String title;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "albumId")
-    private List<PhotoModel> students;
+    private List<Photo> photos;
 
 }
 
