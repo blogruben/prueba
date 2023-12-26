@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.prueba.api.client.AlbumClient;
 import com.prueba.api.models.AlbumModel;
 import com.prueba.api.repositories.AlbumRepository;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 public class AlbumServiceImpl implements AlbumService {
     @Autowired
-    AlbumRepository albumRepository;
+    private AlbumRepository albumRepository;
+    
+    @Autowired
+    private AlbumClient albumClient;
+
 
     @Override
     public ArrayList<AlbumModel> obtenerAlbums(){
+        log.info("PRUEBA XXXXXXXXXXXXXXXXXXXXXXX");
+        log.info(albumClient.getAlbumById(2).toString());
         return (ArrayList<AlbumModel>) albumRepository.findAll();
     }
 

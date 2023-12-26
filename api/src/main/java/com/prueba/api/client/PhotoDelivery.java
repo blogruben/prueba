@@ -1,4 +1,4 @@
-package com.prueba.api.delivery;
+package com.prueba.api.client;
 
 public class PhotoDelivery {
     

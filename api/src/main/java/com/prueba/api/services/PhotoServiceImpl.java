@@ -11,7 +11,7 @@ import com.prueba.api.repositories.PhotoRepository;
 import lombok.extern.slf4j.Slf4j;
 
 
-//@Slf4j
+@Slf4j
 @Service
 public class PhotoServiceImpl implements PhotoService {
     @Autowired

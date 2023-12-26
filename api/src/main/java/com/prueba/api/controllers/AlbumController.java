@@ -1,6 +1,6 @@
 package com.prueba.api.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AlbumController   {
    AlbumService albumService;
 
    @GetMapping()
-   public ArrayList<AlbumModel> getAllAlbums(){
+   public List<AlbumModel> getAllAlbums(){
     return this.albumService.obtenerAlbums();
    }
     
@@ -51,5 +51,9 @@ public class AlbumController   {
     }
 
   }
+
+
+
+  
 
 }

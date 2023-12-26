@@ -7,7 +7,7 @@
 
 
 # Configuracion inicial
-https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.0&packaging=war&jvmVersion=17&groupId=com.typicode&artifactId=jsonplaceholder&name=jsonplaceholder&description=Api%20Rest&packageName=com.typicode.jsonplaceholder&dependencies=data-jpa,h2,web,devtools
+https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.1&packaging=war&jvmVersion=17&groupId=com.typicode&artifactId=jsonplaceholder&name=jsonplaceholder&description=Api%20Rest&packageName=com.typicode.jsonplaceholder&dependencies=data-jpa,h2,web,devtools,cloud-feign,lombok
 
 # Iniciar localmente
 1. Descarga JDK17
@@ -27,7 +27,7 @@ docker logs -f api
 Repositorio 
 MVC
 
-
+https://jsonplaceholder.typicode.com/
 XXXX DIAGRAMA
 
 # BBDD
@@ -47,3 +47,5 @@ INSERT INTO PHOTO VALUES(6, 2, 'THUMBNAIL_URL','TITLE','URL');
 
 # Test de integracion
 gradlew test  
+
+
