@@ -77,6 +77,15 @@ INSERT INTO PHOTO VALUES(6, 2, 'THUMBNAIL_URL','TITLE','URL');
 
 
 # Test de integracion
+1. ejecutar tests
 gradlew test  
+Se genera reporte en build/reports/tests/test/index.html
 
 
+xxxxxxxxxxxxxxxxxx ejecutar integracion y unitarios por separad
+
+hablar de postman
+
+2. Ver cobertura
+gradlew check
+Se genera reporte en build/reports/jacoco/test/html/index.html
