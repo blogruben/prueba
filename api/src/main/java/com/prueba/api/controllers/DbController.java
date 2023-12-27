@@ -29,7 +29,7 @@ public class DbController {
   @GetMapping(value = "/albums")
   public List<Album> getAllAlbums() {
     log.info("endpoint /DB/albums");
-    return this.dbService.obtenerAlbums();
+    return this.dbService.retrieveAlbums();
   }
 
   @GetMapping(value ="/albums/{id}")

@@ -5,7 +5,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+
 import com.prueba.api.client.AlbumClient;
 import com.prueba.api.client.PhotoClient;
 import com.prueba.api.models.Album;
@@ -55,9 +59,16 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public Optional<Album> getAlbumById(Long id){
-         log.info("retrieve a photo by ID");
-        return albumClient.getAlbumById(id);
+    public Album getAlbumById(Long id){
+        log.info("retrieve a photo by ID");
+        Optional<Album> album = Optional.empty();;
+        try {
+            album = albumClient.getAlbumById(id);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return album.get();
     }
 
 

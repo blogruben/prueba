@@ -10,6 +10,6 @@ public interface ApiService {
     public List<Album> enrichAlbums();
     public List<Album> retrieveAlbums();
     public List<Photo> retrievePhotos();
-    public Optional<Album> getAlbumById(Long id);
+    public Album getAlbumById(Long id);
     
 }

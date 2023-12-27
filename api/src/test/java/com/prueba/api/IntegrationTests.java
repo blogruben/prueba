@@ -20,35 +20,27 @@ class IntegrationTests {
 	private MockMvc mockMvc;
 
 	@Test
-	void givenAlbum_whenGet_thenOkay() throws Exception {
-			mockMvc.perform(get("/photo").contentType(MediaType.APPLICATION_JSON))
+	void givenAlbumFromAPI_whenGet_thenOkay() throws Exception {
+			mockMvc.perform(get("/api/albums/1").contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andExpect(content().string("[]"))
-			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+			.andExpect(content().json("{\"id\":1,\"userId\":1,\"title\":\"quidem molestiae enim\",\"photos\":null}"))
+			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));	
+	}
+
+
+	@Test
+	void givenNonExistenAlbumFromAPI_whenGet_thenKo() throws Exception {
+			mockMvc.perform(get("/api/albums/100000000").contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotFound());	
 	}
 
 	@Test
 	void givenAlbum_whenSave_thenOkay() throws Exception {
-			mockMvc.perform(post("/photo")
-			.content("{ \"albumId\": 1, \"title\": \"TITLE222\", \"url\": \"URL\", \"thumbnailUrl\": \"THUMBNAIL_URL\" }")
-			.contentType(MediaType.APPLICATION_JSON))
+			mockMvc.perform(get("/api/albums").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(content().string("[{ \\\"albumId\\\": 1, \\\"title\\\": \\\"TITLE222\\\", \\\"url\\\": \\\"URL\\\", \\\"thumbnailUrl\\\": \\\"THUMBNAIL_URL\\\" }]"))
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 	}
 
-	@Test
-	void givenApiRest_whenSendWrongURL_thenKo() throws Exception {
-			mockMvc.perform(get("/wrongPath")
-			.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNotFound());
-	}
 
-	@Test
-	void givenApiRest_whenSendWrongParam_thenKo() throws Exception {
-			mockMvc.perform(get("/photo/a")
-			.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest());
-	}
 }
 

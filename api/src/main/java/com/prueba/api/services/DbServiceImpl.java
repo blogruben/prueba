@@ -28,7 +28,7 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public List<Album> obtenerAlbums(){
+    public List<Album> retrieveAlbums(){
         log.info("obtenerAlbums");
         return (ArrayList<Album>) albumRepository.findAll();
     }
@@ -44,7 +44,7 @@ public class DbServiceImpl implements DbService {
         albumRepository.saveAll(albums);
         List<Photo> photos = apiService.retrievePhotos();
         photoRepository.saveAll(photos);
-        return "save all";
+        return "All albums with the corresponding photos are saved in the db SUCCESSFULLY.";
     }
 
 }

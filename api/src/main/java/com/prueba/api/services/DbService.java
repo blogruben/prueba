@@ -6,7 +6,7 @@ import com.prueba.api.models.Album;
 
 public interface DbService {
 
-    public List<Album> obtenerAlbums();
+    public List<Album> retrieveAlbums();
     public Optional<Album> getAlbumById(Long id);
     public String saveAllAlbumsFromAPIintoDB();
 

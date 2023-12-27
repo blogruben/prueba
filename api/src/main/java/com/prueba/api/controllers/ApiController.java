@@ -30,7 +30,7 @@ public class ApiController   {
   }
 
   @GetMapping(path ="/albums/{id}")
-  public Optional<Album> getAlbumById(@PathVariable("id") Long id) {
+  public Album getAlbumById(@PathVariable("id") Long id) {
     log.info("endpoint /api/album/{id}");
     return this.apiService.getAlbumById(id);
   }
