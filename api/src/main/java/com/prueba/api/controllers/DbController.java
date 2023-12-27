@@ -10,37 +10,38 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.prueba.api.models.Album;
-import com.prueba.api.services.AlbumService;
+import com.prueba.api.services.DbService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/DB")
-public class DB {
+@RequestMapping("/db")
+public class DbController {
 
-  AlbumService albumService;
+  DbService dbService;
 
   @Autowired
-  public DB(AlbumService albumService) {
-    this.albumService = albumService;
+  public DbController(DbService dbService) {
+    this.dbService = dbService;
   }
 
   @GetMapping(value = "/albums")
   public List<Album> getAllAlbums() {
     log.info("endpoint /DB/albums");
-    return this.albumService.obtenerAlbums();
+    return this.dbService.obtenerAlbums();
   }
 
-  @GetMapping(value ="/album/{id}")
+  @GetMapping(value ="/albums/{id}")
   public Optional<Album> getAlbumById(@PathVariable("id") Long id) {
     log.info("endpoint /DB/albums/{id}");
-    return this.albumService.getAlbumById(id);
+    return this.dbService.getAlbumById(id);
   }
 
   @PutMapping(value = "/albums")
   public String saveAllAlbumsFromAPIintoDB() {
     log.info("endpoint /DB/albums");
-      return "";
+    return this.dbService.saveAllAlbumsFromAPIintoDB();
   }
 
 }

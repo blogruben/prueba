@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "88e6c633-d247-4737-81e7-886519d842ea",
+		"name": "Album-Photo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11720660"
+	},
+	"item": [
+		{
+			"name": "DB",
+			"item": [
+				{
+					"name": "PUT DB Albums",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/db/albums",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"db",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ DB Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/db/albums",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"db",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ DB an Album",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/db/albums/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"db",
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "READ API Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/albums",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ API an Album",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/albums/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "jsonplaceholder",
+			"item": [
+				{
+					"name": "READ API an Album",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ API Albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ API a Photo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ API Photos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Excepcion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/photo/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"photo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

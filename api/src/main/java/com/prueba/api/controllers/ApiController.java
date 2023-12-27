@@ -13,23 +13,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-//@RequestMapping("/API") @ResponseBody
-public class API   {
+@RequestMapping("/api")
+public class ApiController   {
   
   ApiService apiService;
 
   @Autowired
-  public API(ApiService apiService) {
+  public ApiController(ApiService apiService) {
     this.apiService = apiService;
   }
     
-  @GetMapping("/api/albums")
+  @GetMapping("/albums")
   public List<Album> getAllAlbumsFromAPI() {
     log.info("endpoint /API/albums");
     return this.apiService.enrichAlbums();
   }
 
-  @GetMapping(path ="/api/albums/{id}")
+  @GetMapping(path ="/albums/{id}")
   public Optional<Album> getAlbumById(@PathVariable("id") Long id) {
     log.info("endpoint /api/album/{id}");
     return this.apiService.getAlbumById(id);

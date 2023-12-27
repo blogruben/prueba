@@ -1,12 +1,9 @@
 package com.prueba.api.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.prueba.api.client.AlbumClient;
@@ -45,12 +42,14 @@ public class ApiServiceImpl implements ApiService {
         return albums;
     }
     
-    private List<Album> retrieveAlbums(){
+    @Override
+    public List<Album> retrieveAlbums(){
         log.info("retrieve photos from an external API");
         return albumClient.getAllAlbums();
     }
 
-    private List<Photo> retrievePhotos(){
+    @Override
+    public List<Photo> retrievePhotos(){
         log.info("retrieve photos from an external API");
         return photoClient.getAllPhotos();
     }
