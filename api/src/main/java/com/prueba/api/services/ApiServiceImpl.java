@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
 import com.prueba.api.client.AlbumClient;
 import com.prueba.api.client.PhotoClient;
 import com.prueba.api.models.Album;
@@ -37,8 +35,10 @@ public class ApiServiceImpl implements ApiService {
 
     private List<Album> albumsWithPhotos(){
         List<Album> albums = this.retrieveAlbums();
+        //Agrupamos las photos en el id del album que le corresponde
         Map<Integer, List<Photo>> photos = 
 			this.retrievePhotos().stream().collect(Collectors.groupingBy(Photo::getAlbumId));
+        //Añadimos las listas de photos a los albunes correspondientes
         for (Map.Entry<Integer, List<Photo>> entry : photos.entrySet()) {
             Album album = albums.get(entry.getKey()-1);
             album.setPhotos(entry.getValue());

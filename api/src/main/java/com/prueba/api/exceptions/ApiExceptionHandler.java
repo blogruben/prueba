@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
@@ -20,12 +21,12 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(apiErrorResponse);
     }
 
-    //@ExceptionHandler({NoHandlerFoundException.class})
-    //public ResponseEntity<ApiErrorResponse> handleNoHandlerFoundException(
-    //        NoHandlerFoundException ex, HttpServletRequest httpServletRequest) {
-    //    ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, "Sorry!! The resource is not found. Try again.");
-    //    return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(apiErrorResponse);
-    //}
+    @ExceptionHandler({NoHandlerFoundException.class})
+    public ResponseEntity<ApiErrorResponse> handleNoHandlerFoundException(
+            NoHandlerFoundException ex, HttpServletRequest httpServletRequest) {
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(404, "Sorry!! The resource is not found. Try again.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(apiErrorResponse);
+    }
 
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})

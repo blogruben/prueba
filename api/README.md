@@ -1,21 +1,23 @@
 # Albums
+API Rest expone unos albums y photos de https://jsonplaceholder.typicode.com/
 
 # Requisitos
 - Docker
 - JDK 17 
 
+Podemos descargar el JDK17 en el script en el directorio raiz llamado download-JDK-17.bat
+Para usar gradle 8.5 usamos el wrapper ```gradlew -v```
+
 # Configuracion inicial
 https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.1&packaging=war&jvmVersion=17&groupId=com.typicode&artifactId=jsonplaceholder&name=jsonplaceholder&description=Api%20Rest&packageName=com.typicode.jsonplaceholder&dependencies=data-jpa,h2,web,devtools,cloud-feign,lombok
 
-
 # Iniciar localmente
-1. Descarga JDK17
-En caso de necesitrlo usar el script xxx del directorio padre.
-2. Compilar
+1. Compilar
 gradlew build;
-3. Arrancar local
+2. Arrancar local
 gradlew bootRun;
-
+3. Consultar documentacion SpringDoc
+http://localhost:8080/swagger-ui/index.html
 
 # Desplegar en docker
 1. Compilar imagen
@@ -25,29 +27,33 @@ docker run -dp 8080:8080 api
 3. Ver logs
 docker logs -f api
 
-
 # Funcionalidad
-
+Aplicacion Spring MVC que expone los siguientes endpoints:
+**GET /api/albums** ver todos los albunes de la API enriquecidas con sus correspondientes photos.
+**GET /api/albums/{id}** ver el album de
+**GET /db/albums/{id}** ver el album de la bbdd.
+**GET /db/albums** ver todos los albunes de la bbdd.
+**PUT /db/albums** guardar los albunes y photos de la API externa en la bbdd.
 
 # Pattern 
-Usamos el patron mcv para separar en capas la diferentes partes.
-Segun la regla de dependencia la capas superioresde la aplicacion dependen de la inferiores. (y no al reves)
-Controler dependecia de la capa de servicio. Y esta a su vez de repository y client.
-Por otro lado las excepcions y models son transversales del modelo MVC.
-DEbido a que el modelo (clase Album y photo) esta compartido tanto para una API rxterna como sen la extructura de la bbdd
-esta tiene dos motivos para ser modificado. Por tanto no cumpled con el prnicipio de responsabilidad unica de SOLID. 
+Usamos el patrón mcv para separar en capas las diferentes partes.
+Según la regla de dependencia la capas superiores de la aplicación dependen de las inferiores. (y no al revés)
+La capa *Controller* depende de la capa de *servicio*. Y esta a su vez del *repository* y el *client*.
+Por otro lado las excepciones y el modelo son transversales del modelo MVC.
+Debido a que el modelo (las clases album y photo) esta compartido tanto para una API externa como para la estructura de la bbdd
+esta tiene dos motivos para ser modificado. Por tanto no cumple con el principio de responsabilidad única de SOLID. 
 
-Esto podria solucionar usando empleado la arquitectura hexagonal, en la cual la llamada al servicio exterior estaria en 
-un adaptador y la comunicación con la bbdd estaria en otro adaptador en la capa de infructura,
-la cual se comunica a la capa de aplicacion a través de los puertos. 
-Manteniendo el modelo interno, esquema de BBDD, y la estrucutra del json de la API externa por separado.
-sin embargo anadira una complejidad que facilmente lleva al a sobre ingenieria para un microservicio sencillo,
-y romperia el principio KISS. 
-Ademas el único objeto de la bbdd es persister los datos de la api externa, por lo que si la api externa cambiara 
-el esquema de los datos en la practica deberiamos cambiar tambien la estructura de la bbdd. 
+Esto podría solucionar usando empleando la arquitectura hexagonal, en la cual la llamada al servicio exterior estaría en 
+un adaptador y la comunicación con la bbdd estaría en otro adaptador en la capa de infraestructura,
+la cual se comunica a la capa de aplicación a través de los puertos. 
+Manteniendo el modelo interno, esquema de BBDD, y la estrucutra del JSON de la API externa por separado.
+sin embargo añadira una complejidad que fácilmente lleva a la sobreingenieria para un microservicio sencillo,
+y romperia el príncipio KISS. 
+Además el único objeto de la bbdd es persister los datos de la api externa, por lo que en la práctica 
+si la api externa cambiara también deberiamos la estructura de la bbdd. 
 
-El patron repository XXXXXXXXXXXXXXXXXXX
-
+Para la persistencia usamos Spring Data Repositories que provee una implementación 
+generica para hacer un CRUD evitando el boilerplate.
 
 **Controler** gestiona las peticiones de la API Rest
 **Service** implementa la lógica del negocio (caso de usos)
@@ -57,13 +63,11 @@ El patron repository XXXXXXXXXXXXXXXXXXX
 **models** 
 
 
-
-https://jsonplaceholder.typicode.com/
-XXXX DIAGRAMA swagger
-
 # BBDD
 Aceder a la consola de h2 -> http://localhost:8080/h2-ui/
 
+Algunas queries para hacer pruebas
+```
 SELECT * FROM PHOTO;
 SELECT * FROM Album;
 INSERT INTO ALBUM VALUES(1, 'title',10);
@@ -74,18 +78,28 @@ INSERT INTO ALBUM VALUES(2, 'title',10);
 INSERT INTO PHOTO VALUES(4, 2, 'THUMBNAIL_URL','TITLE','URL');
 INSERT INTO PHOTO VALUES(5, 2, 'THUMBNAIL_URL','TITLE','URL');
 INSERT INTO PHOTO VALUES(6, 2, 'THUMBNAIL_URL','TITLE','URL');
-
+```
 
 # Test de integracion
-1. ejecutar tests
-gradlew test  
+1. ejecutar todos los tests
+```gradlew test ``` 
 Se genera reporte en build/reports/tests/test/index.html
 
+2. ejecutar los test de integracion
+(Invoca la Api por lo que testear todas las capas de la aplicacion)
+```gradlew test --tests com.prueba.api.IntegrationTests```
 
-xxxxxxxxxxxxxxxxxx ejecutar integracion y unitarios por separad
+3. ejecutar los test unitarios
+(Testeamos la lógica del negocio, en al capa servicio)
+```gradlew test --tests com.prueba.api.UnitTests```
 
-hablar de postman
-
-2. Ver cobertura
+4. Ver cobertura
 gradlew check
 Se genera reporte en build/reports/jacoco/test/html/index.html
+
+5. Fichero postman
+En el directorio raiz esta el fichero albums.postman.json
+que podemos inportar en Postman v2.1
+
+
+
