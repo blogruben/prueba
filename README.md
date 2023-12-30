@@ -71,6 +71,35 @@ generica para hacer un CRUD evitando el boilerplate.
 **exceptions** configuracion general de la app
 **models** 
 
+```mermaid
+    C4Deployment
+    title Diagram for the API album
+
+    Deployment_Node(mob, "Aplicacion Rest", ""){
+        
+        Deployment_Node(dn, "app modulo", ""){
+            Container(controller, "Controller", "", "")
+            Container(service, "Service", "", "")
+            Container(repository, "Repository", "", "")
+            ContainerDb(db, "BBDD", "", "")
+        }
+        Deployment_Node(den, "cliente modulo", ""){
+            Container(service2, "Service", "", "")
+            Container(client, "Client", "", "")
+        }
+        Deployment_Node(ext, "Api Externa", ""){
+            System_Ext(json, "jsonplaceholder", "")
+        }
+    }
+
+    Rel(controller, service, "", "")
+    Rel(service, repository, "", "")
+    Rel(service, service2, "", "")
+    Rel(repository, db, "", "")
+    Rel(service2, client, "", "")
+    Rel(client, json, "", "")
+
+```
 
 # BBDD
 Aceder a la consola de h2 -> http://localhost:8080/h2-ui/
@@ -103,7 +132,7 @@ Se genera reporte en build/reports/tests/test/index.html
 ```gradlew test --tests com.prueba.api.UnitTests```
 
 4. Ver cobertura
-gradlew check
+```gradlew check```
 Se genera reporte en build/reports/jacoco/test/html/index.html
 
 5. Fichero postman
