@@ -132,7 +132,7 @@ Se genera reporte en build/reports/tests/test/index.html
 ```gradlew test --tests com.prueba.api.UnitTests```
 
 4. Ver cobertura
-```gradlew check```
+```gradlew jacocoTestReport```
 Se genera reporte en build/reports/jacoco/test/html/index.html
 
 5. Fichero postman
@@ -140,4 +140,5 @@ En el directorio raiz esta el fichero albums.postman.json
 que podemos inportar en Postman v2.1
 
 
-
+cobertura 
+tura cercana al 80%), 

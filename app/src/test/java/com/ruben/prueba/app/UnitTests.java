@@ -3,12 +3,11 @@ package com.ruben.prueba.app;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import com.ruben.prueba.app.models.AlbumModel;
 import com.ruben.prueba.app.services.AlbumService;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class UnitTests {
@@ -29,27 +28,27 @@ class UnitTests {
       assertEquals(100,100);
     }
 
-	//@Test
-	//void givenAlbumsFromAPI_whengetById_thenOkay() {
-		//AlbumModel album = AlbumModel.builder()
-		//.userId(1)
-		//.title("quidem molestiae enim")
-		//.build();
-		//assertEquals(album, apiService.getAlbumById(1L));
-	//}
+	@Test
+	void givenAlbumsFromAPI_whengetById_thenOkay() {
+		AlbumModel album = AlbumModel.builder()
+		.userId(1)
+		.title("quidem molestiae enim")
+		.build();
+		assertEquals(album, albumService.getAlbumByIdFromApi(1L));
+	}
 
+	@Test
+	void givenAlbumFromAPI_whenSaveIntoDB_thenOkay() {
+		albumService.saveAllAlbumsFromAPIintoDB();
+		Optional<AlbumModel> oAlbum = albumService.getAlbumByIdFromDb(1L);
+		assertEquals("quidem molestiae enim",oAlbum.get().getTitle());
+	}
 
-	//@Test
-	//void givenAlbumFromAPI_whenSaveIntoDB_thenOkay() {
-
-		//dbService.saveAllAlbumsFromAPIintoDB();
-		//List<Album> albums = dbService.retrieveAlbums();
-
-		//assertEquals(100,albums.size());
-		//assertEquals(50,albums.get(0).getPhotos().size());
-
-		//assert primer elemento 
-	//}
+	@Test
+	void givenAlbumFromAPIa_whenSaveIntoDB_thenKo() {
+		Optional<AlbumModel> oAlbum = albumService.getAlbumByIdFromDb(10000000L);
+		assertFalse(oAlbum.isPresent());
+	}
 
 
 }

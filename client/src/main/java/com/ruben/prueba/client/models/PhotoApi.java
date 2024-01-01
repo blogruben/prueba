@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Builder
 @Data
 @NoArgsConstructor 
 @AllArgsConstructor

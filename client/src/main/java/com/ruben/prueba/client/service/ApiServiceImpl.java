@@ -10,7 +10,6 @@ import com.ruben.prueba.client.models.AlbumApi;
 import com.ruben.prueba.client.consume.AlbumClient;
 import com.ruben.prueba.client.consume.PhotoClient;
 import com.ruben.prueba.client.models.PhotoApi;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -58,6 +57,8 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public Optional<AlbumApi> getAlbumById(Long id){
         log.info("retrieve a photo by ID");
+
+        
         return albumClient.getAlbumById(id);
     }
 

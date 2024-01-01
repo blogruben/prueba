@@ -1,6 +1,9 @@
 package com.ruben.prueba.app.models;
 
 import java.util.List;
+
+import org.apache.commons.lang3.builder.EqualsExclude;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
