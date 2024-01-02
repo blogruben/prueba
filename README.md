@@ -1,15 +1,18 @@
+
 # Albums
-API Rest expone unos albums y photos de https://jsonplaceholder.typicode.com/
+API Rest expone  y enriquece unos datos de https://jsonplaceholder.typicode.com/
+
 
 # Requisitos
 - Docker
 - JDK 17 
-
 Podemos descargar el JDK17 en el script en el directorio raiz llamado download-JDK-17.bat
 Para usar gradle 8.5 usamos el wrapper ```gradlew -v```
 
-# Configuracion inicial
-https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.1&packaging=war&jvmVersion=17&groupId=com.typicode&artifactId=jsonplaceholder&name=jsonplaceholder&description=Api%20Rest&packageName=com.typicode.jsonplaceholder&dependencies=data-jpa,h2,web,devtools,cloud-feign,lombok
+
+# Configuración inicial
+[Configuración incial con las librerías](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.1&packaging=war&jvmVersion=17&groupId=com.typicode&artifactId=jsonplaceholder&name=jsonplaceholder&description=Api%20Rest&packageName=com.typicode.jsonplaceholder&dependencies=data-jpa,h2,web,devtools,cloud-feign,lombok)
+
 
 # Iniciar localmente
 1. Compilar
@@ -18,6 +21,7 @@ https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.
 ```gradlew bootRun```
 3. Consultar documentacion SpringDoc
 http://localhost:8080/swagger-ui/index.html
+
 
 # Desplegar en docker
 1. Compilar imagen
@@ -28,48 +32,60 @@ http://localhost:8080/swagger-ui/index.html
 ```docker logs -f api ```
 
 # Funcionalidad
-Aplicacion Spring MVC que expone los siguientes endpoints:
+Este aplicación Spring MVC que expone los siguientes endpoints:
 
 | Verbo                  | endpoint              |descripcion            |
 | :----------------------|:---------------------:| ---------------------:|
-| GET                    | /api/albums           | Ver todos los albunes de la API enriquecidas con sus correspondientes photos.    |
-| GET                    | /api/albums/{id}      | Ver un album                                                    |
-| GET                    | /db/albums/{id}       | Ver el album de la bbdd.                                        |
-| GET                    | /db/albums            | Ver todos los albunes de la bbdd.                               |
-| PUT                    | /db/albums            | Guardar los albunes y photos de la API externa en la bbdd.      |
+| GET                    | /albums/api           | Ver todos los albunes de la API enriquecidas con sus correspondientes photos.    |
+| GET                    | /albums/api/{id}      | Ver un album                                                    |
+| GET                    | /albums/db/{id}       | Ver el album de la bbdd.                                        |
+| GET                    | /albums/db            | Ver todos los albunes de la bbdd.                               |
+| PUT                    | /albums/db            | Guardar los albunes y photos de la API externa en la bbdd.      |
 
-** /api/albums** ver todos los albunes de la API enriquecidas con sus correspondientes photos.
-**GET ** ver el album de
-**GET ** ver el album de la bbdd.
-**GET /db/albums** 
-**PUT /db/albums** guardar los albunes y photos de la API externa en la bbdd.
 
-# Pattern 
-Usamos el patrón mcv para separar en capas las diferentes partes.
-Según la regla de dependencia la capas superiores de la aplicación dependen de las inferiores. (y no al revés)
-La capa *Controller* depende de la capa de *servicio*. Y esta a su vez del *repository* y el *client*.
-Por otro lado las excepciones y el modelo son transversales del modelo MVC.
-Debido a que el modelo (las clases album y photo) esta compartido tanto para una API externa como para la estructura de la bbdd
-esta tiene dos motivos para ser modificado. Por tanto no cumple con el principio de responsabilidad única de SOLID. 
+# Decisión de patrones de diseño
+Usamos el patrón MCV para separar en capas las diferentes partes.
+Según la regla de dependencia la capas superiores de la aplicación dependen de las inferiores. 
+La capa *Controller* depende de la capa de *servicio* y esta a su vez del *repository*.
 
-Esto podría solucionar usando empleando la arquitectura hexagonal, en la cual la llamada al servicio exterior estaría en 
-un adaptador y la comunicación con la bbdd estaría en otro adaptador en la capa de infraestructura,
-la cual se comunica a la capa de aplicación a través de los puertos. 
-Manteniendo el modelo interno, esquema de BBDD, y la estrucutra del JSON de la API externa por separado.
-sin embargo añadira una complejidad que fácilmente lleva a la sobreingenieria para un microservicio sencillo,
-y romperia el príncipio KISS. 
-Además el único objeto de la bbdd es persister los datos de la api externa, por lo que en la práctica 
-si la api externa cambiara también deberiamos la estructura de la bbdd. 
+He divido la aplicación en dos módulos, el módulo *app* que se encarga de públicar los endpoints y la persistencia
+y por el otro lado, módulo del *client* que se conecta a jsonplaceholder y se encarga de enriquecer los datos.
+
+Además pensando en la optimización en las consultas de la api externa, he añadido el patrón proxy 
+en `com.ruben.prueba.client.service.ProxyApiServiceImpl`, el cual guarda en cache el listado de albunes enriquecidos
+y se actualiza cada cierto número de consultas. Otra solución podría ser abrir un thread para cargar la cache 
+y no interferir en las consultas.
 
 Para la persistencia usamos Spring Data Repositories que provee una implementación 
 generica para hacer un CRUD evitando el boilerplate.
 
-**Controler** gestiona las peticiones de la API Rest
-**Service** implementa la lógica del negocio (caso de usos)
+
+# Módulo app
+**Controller** gestiona las peticiones de la API Rest
+**Service** implementa la lógica del negocio (casos de uso)
 **Repository** persistir los beans del modelo en BBDD.
-**client** cliente API de REST de la API pública jsonplaceholder.
 **exceptions** configuracion general de la app
-**models** 
+**models** la clases que modelan el negocio
+
+# Módulo client
+**consume** cliente API de REST de la API pública jsonplaceholder.
+**models** la clases que modelan el negocio
+**Service** implementa la lógica del negocio (casos de uso)
+
+
+# Rendimiento del algoritmo 
+La api externa devuelte 100 albunes con 50 fotos cada una.
+Para enriquecen los albunes con sus correspondientes fotos. 
+podríamos iterara sobre los albunes y luego sobre cada foto 
+lo que es muy ineficiente con una complejidad cuadrática O(n²)	
+
+Por lo que, primero agrupamos los fotos por el album al que corresponde.
+y nos da los listados de fotos de cada album.
+Luego iteramos sobre cada album para añadir los listados de fotos
+de esta manera la complejidad sería de O(n)	
+
+El algoritmo esta en la funcion `albumsWithPhotos()` del paquete
+`com.ruben.prueba.client.service.ApiServiceImpl`
 
 ```mermaid
     C4Deployment
@@ -118,27 +134,40 @@ INSERT INTO PHOTO VALUES(5, 2, 'THUMBNAIL_URL','TITLE','URL');
 INSERT INTO PHOTO VALUES(6, 2, 'THUMBNAIL_URL','TITLE','URL');
 ```
 
-# Test de integracion
+# Test de integración
 1. ejecutar todos los tests
 ```gradlew test ``` 
-Se genera reporte en build/reports/tests/test/index.html
+Se genera reporte en:
+/app/build/reports/tests/test/index.html
+/client/build/reports/tests/test/index.html
 
 2. ejecutar los test de integracion
 (Invoca la Api por lo que testear todas las capas de la aplicacion)
-```gradlew test --tests com.prueba.api.IntegrationTests```
+```gradlew app:test --tests com.prueba.app.IntegrationTests```
 
 3. ejecutar los test unitarios
 (Testeamos la lógica del negocio, en al capa servicio)
-```gradlew test --tests com.prueba.api.UnitTests```
+```gradlew app:test --tests com.prueba.app.UnitTests```
 
 4. Ver cobertura
 ```gradlew jacocoTestReport```
 Se genera reporte en build/reports/jacoco/test/html/index.html
+/app/build/reports/jacoco/test/html/com.ruben.prueba.app.services/index.html
+/client/build/reports/jacoco/test/html/index.html
 
 5. Fichero postman
 En el directorio raiz esta el fichero albums.postman.json
 que podemos inportar en Postman v2.1
 
 
-cobertura 
-tura cercana al 80%), 
+# Cobertura de los test
+En un proyecto real una cobertura de los tests óptima estaría cercana al 80%.
+En los test unitarios del modulo **client** la cobertura sobre la capa de servicio es
+```com.ruben.prueba.client.service  100 %```
+en el modulo **app** la cobertura es de
+```com.ruben.prueba.app.services  97 %```
+
+Por otro lado los test de integración 
+
+
+

@@ -7,92 +7,86 @@
 	},
 	"item": [
 		{
-			"name": "DB",
+			"name": "API",
 			"item": [
 				{
-					"name": "PUT DB Albums",
+					"name": "READ DB All albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/albums/db",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"albums",
+								"db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ DB albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/albums/db",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"albums",
+								"db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ DB All albums",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/db/albums",
+							"raw": "localhost:8080/albums/db",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"db",
-								"albums"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "READ DB Albums",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/db/albums",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"db",
-								"albums"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "READ DB an Album",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/db/albums/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"db",
 								"albums",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "API",
-			"item": [
-				{
-					"name": "READ API Albums",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/albums",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"albums"
+								"db"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "READ API an Album",
+					"name": "READ API All albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/albums/api",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"albums",
+								"api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ API An album",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -201,25 +195,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Excepcion",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/photo/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"photo",
-						"1"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
