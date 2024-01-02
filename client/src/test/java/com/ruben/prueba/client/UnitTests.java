@@ -1,7 +1,6 @@
 package com.ruben.prueba.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import com.ruben.prueba.client.models.AlbumApi;
 import com.ruben.prueba.client.service.ApiService;
 
 @SpringBootTest
-class UnitariosTests {
+class UnitTests {
 
   @Autowired
   private ApiService proxyApiServiceImpl;

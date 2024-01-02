@@ -20,7 +20,7 @@ Para usar gradle 8.5 usamos el wrapper ```gradlew -v```
 2. Arrancar local
 ```gradlew bootRun```
 3. Consultar documentacion SpringDoc
-http://localhost:8080/swagger-ui/index.html
+```start http://localhost:8080/swagger-ui/index.html```
 
 
 # Desplegar en docker
@@ -90,7 +90,6 @@ El algoritmo esta en la funcion `albumsWithPhotos()` del paquete
 ```mermaid
     C4Deployment
     title Diagram for the API album
-
     Deployment_Node(mob, "Aplicacion Rest", ""){
         
         Deployment_Node(dn, "app modulo", ""){
@@ -107,14 +106,12 @@ El algoritmo esta en la funcion `albumsWithPhotos()` del paquete
             System_Ext(json, "jsonplaceholder", "")
         }
     }
-
     Rel(controller, service, "", "")
     Rel(service, repository, "", "")
     Rel(service, service2, "", "")
     Rel(repository, db, "", "")
     Rel(service2, client, "", "")
     Rel(client, json, "", "")
-
 ```
 
 # BBDD
@@ -135,25 +132,25 @@ INSERT INTO PHOTO VALUES(6, 2, 'THUMBNAIL_URL','TITLE','URL');
 ```
 
 # Test de integración
-1. ejecutar todos los tests
-```gradlew test ``` 
+1. Ejecutar todos los tests
+```gradlew test``` 
 Se genera reporte en:
-/app/build/reports/tests/test/index.html
-/client/build/reports/tests/test/index.html
+```start app/build/reports/tests/test/index.html``` 
+```start client/build/reports/tests/test/index.html``` 
 
-2. ejecutar los test de integracion
+2. Ejecutar los test de integracion
 (Invoca la Api por lo que testear todas las capas de la aplicacion)
-```gradlew app:test --tests com.prueba.app.IntegrationTests```
+```gradlew test --tests com.ruben.prueba.app.IntegrationTests```
 
-3. ejecutar los test unitarios
+3. Ejecutar los test unitarios
 (Testeamos la lógica del negocio, en al capa servicio)
-```gradlew app:test --tests com.prueba.app.UnitTests```
+```gradlew app:test --tests com.ruben.prueba.app.UnitTests```
+```gradlew client:test --tests com.ruben.prueba.client.UnitTests ```
 
 4. Ver cobertura
 ```gradlew jacocoTestReport```
-Se genera reporte en build/reports/jacoco/test/html/index.html
-/app/build/reports/jacoco/test/html/com.ruben.prueba.app.services/index.html
-/client/build/reports/jacoco/test/html/index.html
+```start app/build/reports/jacoco/test/html/com.ruben.prueba.app.services/index.html```
+```start client/build/reports/jacoco/test/html/index.html```
 
 5. Fichero postman
 En el directorio raiz esta el fichero albums.postman.json
@@ -167,7 +164,6 @@ En los test unitarios del modulo **client** la cobertura sobre la capa de servic
 en el modulo **app** la cobertura es de
 ```com.ruben.prueba.app.services  97 %```
 
-Por otro lado los test de integración 
 
 
 
