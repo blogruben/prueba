@@ -21,7 +21,7 @@ class IntegrationTests {
 	private MockMvc mockMvc;
 
 	@Test
-	void givenAlbumFromAPI_whenGet_thenOkay() throws Exception {
+	void givenAlbumFromAPI_whenGetOne_thenOkay() throws Exception {
 			mockMvc.perform(get("/albums/api/1").contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().json("{\"id\":1,\"userId\":1,\"title\":\"quidem molestiae enim\",\"photos\":null}"))
@@ -29,7 +29,7 @@ class IntegrationTests {
 	}
 
 	@Test
-	void givenAlbumFromAPIa_whenGet_thenOkay() throws Exception {
+	void givenAlbumFromAPIa_whenGetAll_thenOkay() throws Exception {
 			mockMvc.perform(get("/albums/api").contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.length()").value(100))
@@ -37,7 +37,7 @@ class IntegrationTests {
 	}
 
 	@Test
-	void givenAlbumsSaved_whengetAll_thenReturnedAlbumsAre100() throws Exception {
+	void givenAlbums_whensaveAlbum_thenReturnedAlbumsAre100() throws Exception {
 			mockMvc.perform(put("/albums/db").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 

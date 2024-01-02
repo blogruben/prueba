@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ruben.prueba.app.models.AlbumModel;
 import com.ruben.prueba.app.services.AlbumService;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

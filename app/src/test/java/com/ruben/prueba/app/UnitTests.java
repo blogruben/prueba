@@ -20,12 +20,6 @@ class UnitTests {
 		List<AlbumModel> albumModel = albumService.getAllAlbumsFromApi();
 		assertEquals(100, albumModel.size());
 		assertEquals(50, albumModel.get(2).getPhotos().size());
-		assertEquals(100,100);
-    }
-
-  	@Test
-    void givenPhotosFromAPI_whengetAll_thenAlbumSizeIs100() {
-      assertEquals(100,100);
     }
 
 	@Test
@@ -38,14 +32,15 @@ class UnitTests {
 	}
 
 	@Test
-	void givenAlbumFromAPI_whenSaveIntoDB_thenOkay() {
+	void givenAlbumFromDB_whengetFromDB_thenOkay() {
 		albumService.saveAllAlbumsFromAPIintoDB();
 		Optional<AlbumModel> oAlbum = albumService.getAlbumByIdFromDb(1L);
 		assertEquals("quidem molestiae enim",oAlbum.get().getTitle());
 	}
 
 	@Test
-	void givenAlbumFromAPIa_whenSaveIntoDB_thenKo() {
+	void givenAlbumFromDB_whengetALbumNotExit_thenReturnNull() {
+		albumService.saveAllAlbumsFromAPIintoDB();
 		Optional<AlbumModel> oAlbum = albumService.getAlbumByIdFromDb(10000000L);
 		assertFalse(oAlbum.isPresent());
 	}

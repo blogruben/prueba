@@ -46,10 +46,12 @@ class UnitTests {
 
 	@Test
   void whenEquals_thenOkay() {
+    // When
     AlbumApi albumApi = proxyApiServiceImpl.getAlbumById(1L).get();
     AlbumApi album = new AlbumApi();
 	  album.setUserId(1);
 	  album.setTitle("quidem molestiae enim");
+    // Then
     assertEquals(album, albumApi);
   }
 
